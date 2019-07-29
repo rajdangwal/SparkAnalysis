@@ -93,6 +93,7 @@ public class SparkExample
 											if (!(vR instanceof JNewExpr)) {
 												if (!((RefType) tR).getSootClass().isJavaLibraryClass()) {
 													Local l = (Local)vL;
+													System.out.println("Local:" +l);
 													if(!pointsToMap.containsKey(l)) {//is this check necessary in SSA
 														PointsToSet pts = pta.reachingObjects(l);
 														DoublePointsToSet dpts;
@@ -100,6 +101,10 @@ public class SparkExample
 														{
 															dpts = (DoublePointsToSet) pts;
 															pointsToMap.put(l, dpts);
+														}
+														else
+														{
+															localsUnDecided.add(l);
 														}
 													}
 												}
@@ -114,6 +119,10 @@ public class SparkExample
 												{
 													dpts = (DoublePointsToSet) pts;
 													pointsToMap.put(l, dpts);
+												}
+												else
+												{
+													localsUnDecided.add(l);
 												}
 											}
 										}
